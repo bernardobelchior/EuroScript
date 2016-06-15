@@ -12,7 +12,7 @@ if [ "$BLOCK_BUTTON" == 1 ]; then
 	xdg-open "http://www.meusresultados.com/"
 fi
 
-today=$(curl -sH 'X-Auth-Token:5e7d2f5566404e9cb29e2f75bafc62d4' http://api.football-data.org/v1/soccerseasons/424/fixtures?timeFrame=n1)
+today=$(curl -sH 'X-Auth-Token:5e7d2f5566404e9cb29e2f75bafc62d4' http://api.football-data.org/v1/soccerseasons/424/fixtures?timeFrame=n3)
 today=$(echo "$today" | JSON.sh -l)
 
 count=$(echo "$today" | grep '"count"' | tr -d '\011')
@@ -40,11 +40,11 @@ if [ "$gameState" == 'IN_PLAY' ]; then
 	awayTeamGoals=$(echo "$today" | grep "\"fixtures\",$i,\"result\",\"goalsAwayTeam\"" | tr -d '\011\"')
 	awayTeamGoals=${awayTeamGoals#"[fixtures,$i,result,goalsAwayTeam]"}
 
-	echo "Current game: $homeTeam $homeTeamGoals - $awayTeamGoals $awayTeam"
+	echo " Current game: $homeTeam $homeTeamGoals - $awayTeamGoals $awayTeam"
 else
 	date=$(echo "$today" | grep "\"fixtures\",$i,\"date\"" | tr -d '\011\"')
 	date=${date#"[fixtures,$i,date]"}
 	date=$(date -d "$date" '+%d/%b/%Y %H:%M')
 
-	echo "Next game: $homeTeam - $awayTeam  $date"
+	echo " Next game: $homeTeam - $awayTeam  $date"
 fi
