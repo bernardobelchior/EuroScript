@@ -8,10 +8,7 @@ echoAwayTeam() {
 	echo "$awayTeam"
 }
 
-#today=$(curl -sX GET http://api.football-data.org/v1/soccerseasons/424/fixtures?timeFrame=n1 | JSON.sh -l)
-
-today='{"_links":{"self":{"href":"http://api.football-data.org/v1/soccerseasons/424/fixtures"},"soccerseason":{"href":"http://api.football-data.org/v1/soccerseasons/424"}},"count":3,"fixtures":[{"_links":{"self":{"href":"http://api.football-data.org/v1/fixtures/149859"},"soccerseason":{"href":"http://api.football-data.org/v1/soccerseasons/424"},"homeTeam":{"href":"http://api.football-data.org/v1/teams/808"},"awayTeam":{"href":"http://api.football-data.org/v1/teams/768"}},"date":"2016-06-15T13:00:00Z","status":"TIMED","matchday":2,"homeTeamName":"Russia","awayTeamName":"Slovakia","result":{"goalsHomeTeam":null,"goalsAwayTeam":null}},{"_links":{"self":{"href":"http://api.football-data.org/v1/fixtures/149854"},"soccerseason":{"href":"http://api.football-data.org/v1/soccerseasons/424"},"homeTeam":{"href":"http://api.football-data.org/v1/teams/811"},"awayTeam":{"href":"http://api.football-data.org/v1/teams/788"}},"date":"2016-06-15T16:00:00Z","status":"TIMED","matchday":2,"homeTeamName":"Romania","awayTeamName":"Switzerland","result":{"goalsHomeTeam":null,"goalsAwayTeam":null}},{"_links":{"self":{"href":"http://api.football-data.org/v1/fixtures/149884"},"soccerseason":{"href":"http://api.football-data.org/v1/soccerseasons/424"},"homeTeam":{"href":"http://api.football-data.org/v1/teams/773"},"awayTeam":{"href":"http://api.football-data.org/v1/teams/1065"}},"date":"2016-06-15T19:00:00Z","status":"TIMED","matchday":2,"homeTeamName":"France","awayTeamName":"Albania","result":{"goalsHomeTeam":null,"goalsAwayTeam":null}}]}'
-
+today=$(curl -sH 'X-Auth-Token:5e7d2f5566404e9cb29e2f75bafc62d4' http://api.football-data.org/v1/soccerseasons/424/fixtures?timeFrame=n1)
 today=$(echo "$today" | JSON.sh -l)
 
 homeTeam=$(echo "$today" | grep '"fixtures",0,"homeTeamName"' | tr -d '\011\"')
