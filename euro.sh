@@ -17,8 +17,22 @@ homeTeam=${homeTeam#'[fixtures,0,homeTeamName]'}
 awayTeam=$(echo "$today" | grep '"fixtures",0,"awayTeamName"' | tr -d '\011\"')
 awayTeam=${awayTeam#'[fixtures,0,awayTeamName]'}
 
-date=$(echo "$today" | grep '"fixtures",0,"date"' | tr -d '\011\"')
-date=${date#'[fixtures,0,date]'}
-date=$(date -d "$date" '+%d/%b/%Y %H:%M')
+gameState=$(echo "$today" | grep '"fixtures",0,"status"' | tr -d '\011\"')
+gameState=${gameState#'[fixtures,0,status]'}
+#echo "$gameState"
 
-echo "Next game: $homeTeam - $awayTeam  $date"
+if [ "$gameState" == 'IN_PLAY' ]; then
+	homeTeamGoals=$(echo "$today" | grep '"fixtures",0,"result","goalsHomeTeam"' | tr -d '\011\"')
+	homeTeamGoals=${homeTeamGoals#'[fixtures,0,result,goalsHomeTeam]'}
+
+	awayTeamGoals=$(echo "$today" | grep '"fixtures",0,"result","goalsAwayTeam"' | tr -d '\011\"')
+	awayTeamGoals=${awayTeamGoals#'[fixtures,0,result,goalsAwayTeam]'}
+
+	echo "Current game: $homeTeam $homeTeamGoals - $awayTeamGoals $awayTeam"
+else
+	date=$(echo "$today" | grep '"fixtures",0,"date"' | tr -d '\011\"')
+	date=${date#'[fixtures,0,date]'}
+	date=$(date -d "$date" '+%d/%b/%Y %H:%M')
+
+	echo "Next game: $homeTeam - $awayTeam  $date"
+fi
