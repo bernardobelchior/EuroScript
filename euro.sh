@@ -11,7 +11,7 @@ echoAwayTeam() {
 #When the left mouse button is clicked
 #launch the browser with a live score website
 if [ "$BLOCK_BUTTON" == 1 ]; then
-	xdg-open "http://www.meusresultados.com/"
+	xdg-open "http://www.meusresultados.com/" > /dev/null
 fi
 
 #Get the games in the next 3 days
